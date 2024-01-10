@@ -1,0 +1,54 @@
+<div class="block-cart action">
+    <a class="icon-link" href="cart.html">
+      <i class="flaticon-shopping-bag"></i>
+      <span class="count">{{request.session.cart|length}}</span>
+      <span class="text">
+      <span class="sub">Your Cart:</span>
+      {{cart_total_amount}}
+      </span>
+    </a>
+    <div class="cart">
+        <div class="cart__mini">
+            <ul>
+                <li>
+                  <div class="cart__title">
+                    <h4>Your Cart</h4>
+                    <span>({{request.session.cart|length}} Item in Cart)</span>
+                  </div>
+                </li>
+                <li>
+                    {% for key,value in request.session.cart.items %}
+                  <div class="cart__item d-flex justify-content-between align-items-center">
+                    <div class="cart__inner d-flex">
+                      <div class="cart__thumb">
+                        <a href="product-details.html">
+                          <img src="{{value.featured_image}}" alt="">
+                        </a>
+                      </div>
+                      <div class="cart__details">
+                        <h6><a href="product-details.html"> {{value.product_name}}  </a></h6>
+                        <div class="cart__price">
+                          <span>BDT {{value.price}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cart__del">
+                        <a href="{% url 'item_clear' key %}"><i class="fal fa-times"></i></a>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </li>
+                <li>
+                  <div class="cart__sub d-flex justify-content-between align-items-center">
+                    <h6>Subtotal</h6>
+                    <span class="cart__sub-total">BDT {{cart_total_amount}}</span>
+                  </div>
+                </li>
+                <li>
+                    <a href="{% url 'cart_detail' %}" class="wc-cart mb-10">View cart</a>
+                    <a href="checkout.html" class="wc-checkout">Checkout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
